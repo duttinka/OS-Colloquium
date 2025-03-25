@@ -20,14 +20,12 @@
    DWORD ThreadID1, ThreadID2;
    hThread1 = CreateThread(NULL, 0, min_max, &data, 0, &ThreadID1);
    hThread2 = CreateThread(NULL, 0, average, &data, 0, &ThreadID2);
-   ```cpp
 
 - `WaitForSingleObject` – для ожидания завершения потоков. Если требуется синхронизировать несколько потоков одновременно, можно использовать WaitForMultipleObjects.
   
   ```cpp
-WaitForSingleObject(hThread1, INFINITE); 
-WaitForSingleObject(hThread2, INFINITE); 
-  ```cpp
+    WaitForSingleObject(hThread1, INFINITE); 
+    WaitForSingleObject(hThread2, INFINITE); 
 
 - Sleep — приостановка выполнения потока.
 Для задержки выполнения программы в лабораторной работе использовались следующие вызовы:
@@ -50,13 +48,13 @@ WaitForSingleObject(hThread2, INFINITE);
 -InitializeCriticalSection
 -EnterCriticalSection
 -LeaveCriticalSection
-```cpp
+    ```cpp
 CRITICAL_SECTION cs;
 InitializeCriticalSection(&cs);
 EnterCriticalSection(&cs);
 // критический код
 LeaveCriticalSection(&cs);
-```cpp
+
 
 #### 4. Что такое семафор
 Семафор – это средство синхронизации, которое ограничивает количество потоков, одновременно получающих доступ к ресурсу. В Win API используется:
@@ -90,16 +88,17 @@ LeaveCriticalSection(&cs);
    - **C++98 с Boost**: **boost::regex** для регулярных выражений.
    - **C++11/17**: **std::regex**.
    - **C++11/17 с Qt**: **QRegularExpression** для работы с регулярными выражениями.
-###Общие вопросы
+     
+### Общие вопросы
 
-####1.ООП (Объектно-Ориентированное Программирование)
+#### 1.ООП (Объектно-Ориентированное Программирование)
 ООП — парадигма программирования, основанная на концепциях:
 1. Инкапсуляция
 2. Наследование
 3. Полиморфизм
 4. Абстракция
 
-####2. Магическое число 7 Миллера
+#### 2. Магическое число 7 Миллера
 Джордж Миллер утверждал, что человек может удерживать в памяти 7±2 элемента информации.  
 
 #### Примеры в IT:
@@ -111,7 +110,7 @@ LeaveCriticalSection(&cs);
 6. Количество элементов в UI-меню
 7. Количество колонок в таблице UI
 
-####3. Энтропия ПО
+#### 3. Энтропия ПО
 Энтропия в ПО — тенденция системы к усложнению и деградации.
 
 #### Негэнтропийные меры (снижение энтропии)
@@ -121,14 +120,14 @@ LeaveCriticalSection(&cs);
 4. Документирование API
 5. Фиксированные кодстайлы 
 
-####4. 5 признаков сложной системы по Бучу
+#### 4. 5 признаков сложной системы по Бучу
 1. Абстракция (пример: использование структур в С)
 2. Инкапсуляция (пример: хранение данных в main.h)
 3. Модульность (пример: Makefile + модульная структура)
 4. Иерархия (пример: наследование в C++ проектах)
 5. Типизация (пример: строгая типизация в C++)
 
-####5. Закон иерархических компенсаций Седова
+#### 5. Закон иерархических компенсаций Седова
 Закон: чем сложнее система, тем больше на нижних уровнях компенсации.
 Исторические примеры в IT:
 1. MS-DOS → Windows (упрощение UI → усложнение ядра)
@@ -140,34 +139,34 @@ LeaveCriticalSection(&cs);
 # Задачи
 
 ## 1) Генерация чисел Фибоначчи
-```cpp
-#include <gtest/gtest.h>
-#include <vector>
+  ```cpp
+  #include <gtest/gtest.h>
+  #include <vector>
 
-std::vector<int> fibonacci(int n) {
-    if (n <= 0) return {};
-    std::vector<int> fib{0};
-    if (n > 1) fib.push_back(1);
-    for (int i = 2; i < n; ++i) {
-        fib.push_back(fib[i - 1] + fib[i - 2]);
-    }
-    return fib;
-}
+  std::vector<int> fibonacci(int n) {
+      if (n <= 0) return {};
+      std::vector<int> fib{0};
+      if (n > 1) fib.push_back(1);
+      for (int i = 2; i < n; ++i) {
+          fib.push_back(fib[i - 1] + fib[i - 2]);
+      }
+      return fib;
+  }
 
-TEST(FibonacciTest, BasicCases) {
-    EXPECT_EQ(fibonacci(1), std::vector<int>({0}));
-    EXPECT_EQ(fibonacci(2), std::vector<int>({0, 1}));
-    EXPECT_EQ(fibonacci(5), std::vector<int>({0, 1, 1, 2, 3}));
-}
+  TEST(FibonacciTest, BasicCases) {
+      EXPECT_EQ(fibonacci(1), std::vector<int>({0}));
+      EXPECT_EQ(fibonacci(2), std::vector<int>({0, 1}));
+      EXPECT_EQ(fibonacci(5), std::vector<int>({0, 1, 1, 2, 3}));
+  }
 
-TEST(FibonacciTest, EdgeCases) {
-    EXPECT_EQ(fibonacci(0), std::vector<int>());
-    EXPECT_EQ(fibonacci(-5), std::vector<int>());
-}
+  TEST(FibonacciTest, EdgeCases) {
+      EXPECT_EQ(fibonacci(0), std::vector<int>());
+      EXPECT_EQ(fibonacci(-5), std::vector<int>());
+  }
+```
 
-```cpp
 ## 2) Проверка палиндромов
-```cpp
+  ```cpp
 #include <gtest/gtest.h>
 #include <string>
 
@@ -187,9 +186,9 @@ TEST(PalindromeTest, NegativeCases) {
     EXPECT_FALSE(is_palindrome(123));
     EXPECT_FALSE(is_palindrome(10));
 }
-```cpp
+```
 ## 3) Разворот связного списка
-```cpp
+  ```cpp
 #include <gtest/gtest.h>
 #include <vector>
 
@@ -227,4 +226,4 @@ TEST(LinkedListTest, ReverseList) {
     Node* reversed = reverse_list(head);
     EXPECT_EQ(list_to_vector(reversed), std::vector<int>({3, 2, 1}));
 }
-```cpp
+
