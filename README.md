@@ -24,10 +24,10 @@
 
 - `WaitForSingleObject` – для ожидания завершения потоков. Если требуется синхронизировать несколько потоков одновременно, можно использовать WaitForMultipleObjects.
   
-```cpp
+  ```cpp
 WaitForSingleObject(hThread1, INFINITE); 
 WaitForSingleObject(hThread2, INFINITE); 
-```cpp
+  ```cpp
 
 - Sleep — приостановка выполнения потока.
 Для задержки выполнения программы в лабораторной работе использовались следующие вызовы:
