@@ -18,7 +18,6 @@
     ```cpp
    HANDLE hThread1, hThread2;
    DWORD ThreadID1, ThreadID2;
-   
    hThread1 = CreateThread(NULL, 0, min_max, &data, 0, &ThreadID1);
    hThread2 = CreateThread(NULL, 0, average, &data, 0, &ThreadID2);
    ```cpp
@@ -138,4 +137,94 @@ LeaveCriticalSection(&cs);
 4. Скрипты Bash → Docker (упрощение деплоя → сложные контейнеры)
 5. Rust как замена C++ для безопасного управления памятью.
 
+# Задачи
 
+## 1) Генерация чисел Фибоначчи
+```cpp
+#include <gtest/gtest.h>
+#include <vector>
+
+std::vector<int> fibonacci(int n) {
+    if (n <= 0) return {};
+    std::vector<int> fib{0};
+    if (n > 1) fib.push_back(1);
+    for (int i = 2; i < n; ++i) {
+        fib.push_back(fib[i - 1] + fib[i - 2]);
+    }
+    return fib;
+}
+
+TEST(FibonacciTest, BasicCases) {
+    EXPECT_EQ(fibonacci(1), std::vector<int>({0}));
+    EXPECT_EQ(fibonacci(2), std::vector<int>({0, 1}));
+    EXPECT_EQ(fibonacci(5), std::vector<int>({0, 1, 1, 2, 3}));
+}
+
+TEST(FibonacciTest, EdgeCases) {
+    EXPECT_EQ(fibonacci(0), std::vector<int>());
+    EXPECT_EQ(fibonacci(-5), std::vector<int>());
+}
+
+```cpp
+## 2) Проверка палиндромов
+```cpp
+#include <gtest/gtest.h>
+#include <string>
+
+bool is_palindrome(int num) {
+    auto str = std::to_string(num);
+    auto reversed = std::string(str.rbegin(), str.rend());
+    return str == reversed;
+}
+
+TEST(PalindromeTest, PositiveCases) {
+    EXPECT_TRUE(is_palindrome(121));
+    EXPECT_TRUE(is_palindrome(1221));
+    EXPECT_TRUE(is_palindrome(1));
+}
+
+TEST(PalindromeTest, NegativeCases) {
+    EXPECT_FALSE(is_palindrome(123));
+    EXPECT_FALSE(is_palindrome(10));
+}
+```cpp
+## 3) Разворот связного списка
+```cpp
+#include <gtest/gtest.h>
+#include <vector>
+
+struct Node {
+    int data;
+    Node* next;
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+Node* reverse_list(Node* head) {
+    Node* prev = nullptr;
+    while (head) {
+        Node* next = head->next;
+        head->next = prev;
+        prev = head;
+        head = next;
+    }
+    return prev;
+}
+
+std::vector<int> list_to_vector(Node* head) {
+    std::vector<int> result;
+    while (head) {
+        result.push_back(head->data);
+        head = head->next;
+    }
+    return result;
+}
+
+TEST(LinkedListTest, ReverseList) {
+    Node* head = new Node(1);
+    head->next = new Node(2);
+    head->next->next = new Node(3);
+
+    Node* reversed = reverse_list(head);
+    EXPECT_EQ(list_to_vector(reversed), std::vector<int>({3, 2, 1}));
+}
+```cpp
